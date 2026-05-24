@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Scooter Assembly Management</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h2>🛵 SaferScooter</h2>
+            <p>Admin Dashboard</p>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#" class="nav-link active" onclick="showSection(event, 'dashboard')"><span class="nav-icon">📊</span> Dashboard</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" onclick="showSection(event, 'engineers')"><span class="nav-icon">👥</span> Manage Engineers</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" onclick="showSection(event, 'addScooter')"><span class="nav-icon">🛴</span> Add Scooter</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" onclick="showSection(event, 'parts')"><span class="nav-icon">⚙️</span> Edit Part List</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <div>
+                    <h1>Admin Dashboard</h1>
+                    <p style="color: var(--text-secondary); margin-top: 5px;">Manage scooter assembly operations</p>
+                </div>
+                <div class="header-info">
+                    <div class="user-info">
+                        <p><strong>Admin User</strong></p>
+                        <p style="font-size: 12px;">Last login: Today</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="section active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Total Scooter Models</h3>
+                        <div class="number" id="totalModels">2</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Active Engineers</h3>
+                        <div class="number" id="engineerCount">2</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Parts in Inventory</h3>
+                        <div class="number" id="totalParts">5</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Low Stock Items</h3>
+                        <div class="number" id="lowStockCount">1</div>
+                    </div>
+                </div>
+
+                <div class="quick-actions">
+                    <div class="action-card" onclick="showSection(event, 'engineers')">
+                        <div class="action-icon">👤</div>
+                        <h3>Add Engineer</h3>
+                        <p>Register new engineer & get ID</p>
+                    </div>
+                    <div class="action-card" onclick="showSection(event, 'addScooter')">
+                        <div class="action-icon">🛴</div>
+                        <h3>Add Scooter Model</h3>
+                        <p>Create new scooter design</p>
+                    </div>
+                    <div class="action-card" onclick="showSection(event, 'parts')">
+                        <div class="action-icon">🔧</div>
+                        <h3>Manage Parts</h3>
+                        <p>Update parts inventory</p>
+                    </div>
+                    <div class="action-card" onclick="viewEngineerList(event)">
+                        <div class="action-icon">📋</div>
+                        <h3>View Engineers</h3>
+                        <p>See all engineer details</p>
+                    </div>
+                </div>
+
+                <h2 style="margin-top: 30px; margin-bottom: 15px;">Recent Engineers Added</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Engineer ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Station</th>
+                                <th>Specialization</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentEngineersTable">
+                            <tr>
+                                <td><span class="engineer-id-badge">ENG001</span></td>
+                                <td>Rajesh Kumar</td>
+                                <td>rajesh@company.com</td>
+                                <td>Station 1</td>
+                                <td>Assembly & Welding</td>
+                            </tr>
+                            <tr>
+                                <td><span class="engineer-id-badge">ENG002</span></td>
+                                <td>Priya Singh</td>
+                                <td>priya@company.com</td>
+                                <td>Station 2</td>
+                                <td>Electronics & Testing</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Engineers Section -->
+            <section id="engineers" class="section">
+                <h2 style="margin-bottom: 20px;">Manage Engineers</h2>
+                <button class="btn btn-primary" onclick="openModal('engineerModal')">➕ Add New Engineer</button>
+
+                <div class="table-container" style="margin-top: 20px;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Engineer ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Station</th>
+                                <th>Specialization</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="engineersTable">
+                            <tr>
+                                <td><span class="engineer-id-badge">ENG001</span></td>
+                                <td>Rajesh Kumar</td>
+                                <td>rajesh@company.com</td>
+                                <td>Station 1</td>
+                                <td>Assembly & Welding</td>
+                                <td><button class="btn btn-sm btn-danger" onclick="deleteEngineer('ENG001')">Delete</button></td>
+                            </tr>
+                            <tr>
+                                <td><span class="engineer-id-badge">ENG002</span></td>
+                                <td>Priya Singh</td>
+                                <td>priya@company.com</td>
+                                <td>Station 2</td>
+                                <td>Electronics & Testing</td>
+                                <td><button class="btn btn-sm btn-danger" onclick="deleteEngineer('ENG002')">Delete</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Add Scooter Section -->
+            <section id="addScooter" class="section">
+                <h2 style="margin-bottom: 20px;">Add New Scooter Model</h2>
+                <div class="form-section">
+                    <form onsubmit="addScooter(event)">
+                        <div style="background-color: #e8f4f8; padding: 15px; border-radius: 6px; margin-bottom: 20px; border-left: 4px solid #2a5b8e;">
+                            <p style="margin: 0; font-size: 13px; color: #0c5460;"><strong>ℹ️ Info:</strong> Add completely NEW scooter models. Define motor, battery specs. Manually assign parts (old or new).</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Scooter Model Name</label>
+                            <input type="text" placeholder="e.g., Elite Pro X, Urban 400, Premium 600" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Motor Power (Watts)</label>
+                                <input type="number" placeholder="e.g., 500" min="100" max="2000" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Battery Capacity (Ah)</label>
+                                <input type="number" placeholder="e.g., 10" min="1" max="50" step="0.5" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Max Speed (km/h)</label>
+                            <input type="number" placeholder="e.g., 60" min="10" max="150" required>
+                        </div>
+
+                        <h3 style="margin-top: 25px; margin-bottom: 15px;">Parts Assignment</h3>
+                        <p style="color: var(--text-secondary); margin-bottom: 15px;">Add parts required for this scooter (existing parts or new ones to be added later)</p>
+
+                        <div id="partsAssignmentContainer" style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px;">
+                            <div class="parts-assignment-row">
+                                <input type="text" placeholder="Part ID (e.g., P001)" class="part-id-input" style="width: 40%;">
+                                <input type="number" placeholder="Quantity" class="part-qty-input" min="1" value="1" style="width: 30%;">
+                                <button type="button" class="btn btn-sm btn-secondary" onclick="removePartRow(this)">Remove</button>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn btn-secondary" style="margin-bottom: 20px;" onclick="addPartRow()">➕ Add Another Part</button>
+
+                        <h3 style="margin-top: 25px; margin-bottom: 15px;">Parts Summary</h3>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Part ID</th>
+                                        <th>Quantity</th>
+                                        <th>Part Name (from inventory)</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="scooterPartsSummary">
+                                    <tr>
+                                        <td colspan="3" style="text-align: center; color: var(--text-secondary);">Parts will appear here as you add them</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div style="margin-top: 20px;">
+                            <button type="submit" class="btn btn-success">✔️ Create Scooter Model</button>
+                            <button type="button" class="btn btn-secondary" onclick="resetScooterForm()">Clear Form</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Edit Part List Section -->
+            <section id="parts" class="section">
+                <h2 style="margin-bottom: 20px;">Parts Inventory Management</h2>
+
+                <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+                    <button class="btn btn-primary" onclick="openModal('addPartModal')">➕ Add New Part</button>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <input type="text" id="partsSearchInput" placeholder="Search parts by ID, name, or category..." style="padding: 10px 12px; border: 1px solid var(--border-color); border-radius: 6px; width: 100%; font-size: 14px;" onkeyup="searchParts()">
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Part ID</th>
+                                <th>Part Name</th>
+                                <th>Category</th>
+                                <th>Stock</th>
+                                <th>Unit Price</th>
+                                <th>Quality</th>
+                                <th>For Scooter</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="partsTable">
+                            <tr>
+                                <td><strong>P001</strong></td>
+                                <td>Brushless Motor (500W)</td>
+                                <td>Powertrain</td>
+                                <td>45</td>
+                                <td>₹3,500</td>
+                                <td><span class="status-badge status-good">Good</span></td>
+                                <td>✓</td>
+                                <td>
+                                    <button class="btn btn-sm btn-secondary" onclick="editPartUI('P001')">Edit</button>
+                                    <button class="btn btn-sm btn-danger" onclick="deletePart('P001')">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Engineer Modal -->
+    <div id="engineerModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Engineer</h2>
+                <button class="close-btn" onclick="closeModal('engineerModal')">✕</button>
+            </div>
+            <form onsubmit="saveEngineer(event)">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" placeholder="Enter engineer's full name" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" placeholder="Enter email address" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" placeholder="Enter phone number" required>
+                </div>
+                <div class="form-group">
+                    <label>Station Assignment</label>
+                    <select required>
+                        <option value="">Select Station</option>
+                        <option>Station 1</option>
+                        <option>Station 2</option>
+                        <option>Station 3</option>
+                        <option>Station 4</option>
+                        <option>Station 5</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Specialization</label>
+                    <select required>
+                        <option value="">Select Specialization</option>
+                        <option>Assembly & Welding</option>
+                        <option>Electronics & Testing</option>
+                        <option>Quality Check</option>
+                        <option>Finishing & Painting</option>
+                        <option>Battery Management</option>
+                    </select>
+                </div>
+
+                <div style="background-color: #e8f4f8; padding: 15px; border-radius: 6px; margin: 20px 0; border-left: 4px solid #2a5b8e;">
+                    <p style="margin: 0; font-size: 13px; color: #0c5460;"><strong>🆔 Engineer ID:</strong> <span id="generatedEngineerId" style="font-weight: bold; color: #1e3a5f;">Will be auto-generated</span></p>
+                    <p style="margin: 5px 0 0 0; font-size: 12px; color: #0c5460;">Engineer will use this ID to login</p>
+                </div>
+
+                <button type="submit" class="btn btn-success">Save Engineer & Generate ID</button>
+                <button type="button" class="btn btn-secondary" onclick="closeModal('engineerModal')">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Part Modal -->
+    <div id="addPartModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Part</h2>
+                <button class="close-btn" onclick="closeModal('addPartModal')">✕</button>
+            </div>
+            <form onsubmit="savePart(event)">
+                <div class="form-group">
+                    <label>Part ID</label>
+                    <input type="text" placeholder="P001, P002, etc." required>
+                </div>
+                <div class="form-group">
+                    <label>Part Name</label>
+                    <input type="text" placeholder="e.g., Brushless Motor, Lubricant, Tool" required>
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <select required>
+                        <option value="">Select Category</option>
+                        <option>Powertrain</option>
+                        <option>Power</option>
+                        <option>Structure</option>
+                        <option>Electronics</option>
+                        <option>Sensors</option>
+                        <option>Braking</option>
+                        <option>Lighting</option>
+                        <option>Accessories</option>
+                        <option>Tools</option>
+                        <option>Maintenance</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Unit Price (₹)</label>
+                    <input type="number" placeholder="Enter unit price" required>
+                </div>
+                <div class="form-group">
+                    <label>Stock Available</label>
+                    <input type="number" placeholder="Enter stock quantity" required>
+                </div>
+                <div class="form-group">
+                    <label>Quality Status</label>
+                    <select required>
+                        <option value="">Select Quality</option>
+                        <option>Good</option>
+                        <option>Medium</option>
+                        <option>Low</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Supplier</label>
+                    <input type="text" placeholder="Enter supplier name" required>
+                </div>
+                <div class="form-group">
+                    <label>Warranty</label>
+                    <input type="text" placeholder="e.g., 12 months" required>
+                </div>
+                <div class="form-group">
+                    <label style="display: flex; align-items: center; gap: 8px;">
+                        <input type="checkbox" id="forScooter" checked>
+                        <span>This is a scooter part</span>
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-success">Add Part</button>
+                <button type="button" class="btn btn-secondary" onclick="closeModal('addPartModal')">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Part Modal -->
+    <div id="editPartModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit Part</h2>
+                <button class="close-btn" onclick="closeModal('editPartModal')">✕</button>
+            </div>
+            <form onsubmit="updatePart(event)">
+                <div class="form-group">
+                    <label>Part ID (Read-only)</label>
+                    <input type="text" id="editPartId" disabled style="background-color: #f0f0f0; cursor: not-allowed;">
+                </div>
+                <div class="form-group">
+                    <label>Stock Available</label>
+                    <input type="number" id="editPartStock" placeholder="Update stock quantity" required>
+                </div>
+                <div class="form-group">
+                    <label>Unit Price (₹)</label>
+                    <input type="number" id="editPartPrice" placeholder="Update unit price" required>
+                </div>
+                <div class="form-group">
+                    <label>Quality Status</label>
+                    <select id="editPartQuality" required>
+                        <option value="">Select Quality</option>
+                        <option>Good</option>
+                        <option>Medium</option>
+                        <option>Low</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Supplier</label>
+                    <input type="text" id="editPartSupplier" placeholder="Update supplier name" required>
+                </div>
+                <button type="submit" class="btn btn-success">Update Part</button>
+                <button type="button" class="btn btn-secondary" onclick="closeModal('editPartModal')">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
